@@ -7,7 +7,6 @@ if [[ -d "$projectdir/next" ]]; then
            "$projectdir/LICENSE"              \
            "$projectdir/Makefile"             \
            "$projectdir/${projectdir##*/}.1"  \
-           "$projectdir/genmonifypop.sh"      \
 
 
   cp -f "$projectdir/program.sh"              \

@@ -3,8 +3,8 @@
 ___printversion(){
   
 cat << 'EOB' >&2
-vivaldi-autoinject-custom-js - version: 2020.11.21.7
-updated: 2020-11-21 by budRich
+vivaldi-autoinject-custom-js-ui - version: 2020.11.22.9
+updated: 2020-11-22 by budRich
 EOB
 }
 
@@ -60,22 +60,25 @@ main() {
 ___printhelp(){
   
 cat << 'EOB' >&2
-vivaldi-autoinject-custom-js - auto inject custom javascript for vivaldi UI
+vivaldi-autoinject-custom-js-ui - manage custom js UI mods for the vivaldi web browser
 
 
 SYNOPSIS
 --------
-vivaldi-autoinject-custom-js [--remove|-r FILENAME] [FILES ...]
-vivaldi-autoinject-custom-js --list|-l
-vivaldi-autoinject-custom-js --help|-h
-vivaldi-autoinject-custom-js --version|-v
+vivaldi-autoinject-custom-js-ui [--remove|-r FILENAME] [FILES ...]
+vivaldi-autoinject-custom-js-ui --list|-l
+vivaldi-autoinject-custom-js-ui --help|-h
+vivaldi-autoinject-custom-js-ui --version|-v
 
 OPTIONS
 -------
 
 --remove|-r FILENAME  
+Remove FILENAME.
 
 --list|-l  
+Prints all installed js modifications.
+
 
 --help|-h  
 Show help and exit.
@@ -83,6 +86,7 @@ Show help and exit.
 
 --version|-v  
 Show version and exit.
+
 EOB
 }
 
@@ -159,8 +163,7 @@ installhook() {
 
 local hookpath=$_prefix/share/libalpm/hooks/vivaldi-UI-js.hook
 
-[[ -d ${hookpath%/*} && ! -f $hookpath ]] \
-  || return
+[[ -d ${hookpath%/*} && ! -f $hookpath ]] || return
 
 cat << EOB > "$hookpath"
 [Trigger]
@@ -194,7 +197,7 @@ removefile() {
 
 declare -A __o
 options="$(
-  getopt --name "[ERROR]:vivaldi-autoinject-custom-js" \
+  getopt --name "[ERROR]:vivaldi-autoinject-custom-js-ui" \
     --options "r:lhv" \
     --longoptions "remove:,list,help,version," \
     -- "$@" || exit 98

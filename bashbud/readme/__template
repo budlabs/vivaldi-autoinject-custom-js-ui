@@ -10,7 +10,8 @@ wrap:     60
 %%fi%%
 %%if readme_install%%
 
-## installation
+installation
+------------
 
 %%readme_install%%
 %%fi%%
