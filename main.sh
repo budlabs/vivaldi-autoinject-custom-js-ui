@@ -45,6 +45,7 @@ main() {
   cp -f "$_tmp" "$_trg"
 
   installhook
+  exit 0
 }
 
 ___source="$(readlink -f "${BASH_SOURCE[0]}")"  #bashbud
