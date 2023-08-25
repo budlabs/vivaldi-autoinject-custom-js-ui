@@ -163,7 +163,9 @@ installhook() {
 
 local hookpath=$_prefix/share/libalpm/hooks/vivaldi-UI-js.hook
 
-[[ -d ${hookpath%/*} && ! -f $hookpath ]] || return
+if [[ -d ${hookpath%/*} && -f $hookpath ]]; then
+   return
+fi
 
 cat << EOB > "$hookpath"
 [Trigger]
