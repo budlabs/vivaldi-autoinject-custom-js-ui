@@ -30,11 +30,11 @@ To manually add custom javascript modifications to the
 
 - Add the javascript file to vivaldis resource directory (on arch this is `/opt/vivaldi/resources/vivaldi`)
 
-- Add an entry in the browser.html file in the same directory.
+- Add an entry in the window.html file in the same directory.
 
 
 This is not too complicated, but I have noticed that when
-**vivaldi** is being updated, the `browser.html` file is
+**vivaldi** is being updated, the `window.html` file is
 overwritten, meaning that step 2 needs to be repeated after
 every update.  
 
@@ -42,10 +42,10 @@ It also gets a bit messy to manage multiple mods.
 
 If `vivaldi-autoinject-custom-js-ui` is launched without
 any command line arguments, it will update the
-`browser.html` file to include all javascript files located
-in `PREFIX/share/vivaldi-UI-js`, (*PREFIX will be inherited
+`window.html` file to include all javascript files located
+in `PREFIX/share/vivaldi-ui-js`, (*PREFIX will be inherited
 by the Makefile on installation, but defaults to:* `/usr`).
-The **vivaldi-UI-js/** directory is automatically created by
+The **vivaldi-ui-js/** directory is automatically created by
 the script when new mods are added.
 
 Any files with `.js` extension passed as arguments will get
