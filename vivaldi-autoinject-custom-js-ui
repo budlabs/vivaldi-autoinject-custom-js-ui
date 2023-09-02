@@ -26,7 +26,7 @@ _vivaldi=$(readlink -f "$(which vivaldi-stable)")
 _optd=${_vivaldi%/*}/resources/vivaldi
 _shared=$_prefix/share/vivaldi-UI-js
 
-_trg=$_optd/browser.html
+_trg=$_optd/window.html
 
 main() {
 
@@ -116,7 +116,7 @@ addfiles() {
     [[ $f = "$_shared/${f##*/}" ]] \
       || cp -f "$f" "$_shared"
 
-    # adds entry in browser.html if it doesn't exist
+    # adds entry in window.html if it doesn't exist
     grep "$str" "$_tmp" >/dev/null \
       || sed -ri "s|([[:space:]]*)(</body>)|\1\1$str\n\1\2|" "$_tmp"
   done
