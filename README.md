@@ -43,9 +43,9 @@ It also gets a bit messy to manage multiple mods.
 If `vivaldi-autoinject-custom-js-ui` is launched without
 any command line arguments, it will update the
 `window.html` file to include all javascript files located
-in `PREFIX/share/vivaldi-ui-js`, (*PREFIX will be inherited
+in `PREFIX/share/vivaldi-UI-js`, (*PREFIX will be inherited
 by the Makefile on installation, but defaults to:* `/usr`).
-The **vivaldi-ui-js/** directory is automatically created by
+The **vivaldi-UI-js/** directory is automatically created by
 the script when new mods are added.
 
 Any files with `.js` extension passed as arguments will get

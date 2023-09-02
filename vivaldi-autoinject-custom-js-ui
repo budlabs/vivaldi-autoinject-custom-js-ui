@@ -24,7 +24,7 @@ _vivaldi=$(readlink -f "$(which vivaldi-stable)")
 : "${_vivaldi:=$(readlink -f "$(which vivaldi-snapshot)")}"
 
 _optd=${_vivaldi%/*}/resources/vivaldi
-_shared=$_prefix/share/vivaldi-ui-js
+_shared=$_prefix/share/vivaldi-UI-js
 
 _trg=$_optd/window.html
 
@@ -112,7 +112,7 @@ addfiles() {
     cp -f "$f" "$_optd"
 
     # files passed as arguments overwrites existing
-    # files in /usr/share/vivaldi-ui-js
+    # files in /usr/share/vivaldi-UI-js
     [[ $f = "$_shared/${f##*/}" ]] \
       || cp -f "$f" "$_shared"
 
@@ -161,7 +161,7 @@ ERH(){
 # a hook to automatically update vivaldis UI is added
 installhook() {
 
-local hookpath=$_prefix/share/libalpm/hooks/vivaldi-ui-js.hook
+local hookpath=$_prefix/share/libalpm/hooks/vivaldi-UI-js.hook
 
 [[ -d ${hookpath%/*} && ! -f $hookpath ]] || return
 
