@@ -1,6 +1,6 @@
 NAME         := vivaldi-autoinject-custom-js-ui
-VERSION      := 2023.08.27.1
-UPDATED      := 2023-08-27
+VERSION      := 2023.09.03.1
+UPDATED      := 2023-09-03
 CREATED      := 2020-11-21
 AUTHOR       := budRich
 CONTACT      := github.com/budlabs/vivaldi-autoinject-custom-js-ui
