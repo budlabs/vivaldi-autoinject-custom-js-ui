@@ -1,12 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# in makefile m4 will expand PREFIX
-# before installation
-if [[ -d PREFIX ]]; then
-  _prefix='PREFIX'
-else
-  _prefix=/usr
-fi
+main() {
 
   # in makefile m4 will expand PREFIX
   # before installation
@@ -44,24 +38,20 @@ fi
   [[ -f $_browser_html ]] || ERX \
     "could not find $_browser_html, is vivaldi installed?"
 
-  readonly _tmp=$(mktemp)
+  _tmp=$(mktemp)
   trap 'rm -f "$_tmp"' EXIT SIGINT
 
   cp -f "$_browser_html" "$_tmp"
 
-  if [[ -n ${__o[remove]} ]]; then
-    removefile "${__o[remove]}"
-  else
-    addfiles "$@"
+  if [[ -n ${_o[remove]} ]]
+    then removefile "${_o[remove]}"
+    else addfiles "$@"
   fi
 
   cp -f "$_tmp" "$_browser_html"
 
-  installhook
   exit 0
 }
 
-___source="$(readlink -f "${BASH_SOURCE[0]}")"  #bashbud
-___dir="${___source%/*}"                        #bashbud
-source "$___dir/init.sh"                        #bashbud
-main "${@}"                                     #bashbud
+__dir=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")") #bashbud
+source "$__dir/_init.sh"                              #bashbud

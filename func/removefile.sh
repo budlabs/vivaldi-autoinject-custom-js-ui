@@ -7,12 +7,11 @@ removefile() {
   local optf="$_vivaldi_directory/$trg"
   local str
 
-  [[ -f $sharef ]] \
-    || ERX "file $sharef not found"
+  [[ -f $sharef ]] || ERX "file $sharef not found"
 
   rm -f "$sharef" "$optf"
 
-  str=$(printf '<script src="%s"></script>' "$trg")
+  printf -v str '<script src="%s"></script>' "$trg"
 
   grep -v "$str" "$_browser_html" > "$_tmp"
 }
