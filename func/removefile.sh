@@ -3,8 +3,9 @@
 removefile() {
 
   local trg=${1##*/}
-  local sharef="$_shared/$trg"
-  local optf="$_optd/$trg"
+  local sharef="$_data_directory/$trg"
+  local optf="$_vivaldi_directory/$trg"
+  local str
 
   [[ -f $sharef ]] \
     || ERX "file $sharef not found"

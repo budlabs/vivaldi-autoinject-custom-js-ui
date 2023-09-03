@@ -8,10 +8,21 @@ else
   _prefix=/usr
 fi
 
-_source=$(readlink -f "${BASH_SOURCE[0]}")
+  # in makefile m4 will expand PREFIX
+  # before installation
+  if [[ -d PREFIX ]]
+    then _prefix='PREFIX'
+    else _prefix=/usr
+  fi
 
-_vivaldi=$(readlink -f "$(which vivaldi-stable)")
-: "${_vivaldi:=$(readlink -f "$(which vivaldi-snapshot)")}"
+  _data_directory=$_prefix/share/vivaldi-UI-js
+
+  if [[ ${_o[list]} && -d $_data_directory ]]; then
+    ls -A "$_data_directory"
+    exit
+  elif ((EUID)); then
+    ERX "script needs to be executed as root (sudo)"
+  fi
 
   : "${_vivaldi:=$(realpath "$(command -v vivaldi-stable)")}"
   : "${_vivaldi:=$(realpath "$(command -v vivaldi-snapshot)")}"

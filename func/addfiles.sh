@@ -5,16 +5,16 @@ addfiles() {
   declare -a files
 
   # make sure all files to add have .js suffix
-  for f in "$@" "$_shared"/*.js ; do
+  for f in "$@" "$_data_directory"/*.js ; do
     [[ -f $f && $f =~ [.]js$ ]] && files+=("$f")
   done
 
   ((${#files[@]})) || ERX \
     "could not find any js files to inject." \
-    "add files to $_shared"                  \
+    "add files to $_data_directory"          \
     "or as arguments to this command"
 
-  mkdir -p "$_shared"
+  mkdir -p "$_data_directory"
   
   for f in "${files[@]}"; do
     printf -v str '<script src="%s"></script>' "${f##*/}"
@@ -22,8 +22,8 @@ addfiles() {
 
     # files passed as arguments overwrites existing
     # files in /usr/share/vivaldi-UI-js
-    [[ $f = "$_shared/${f##*/}" ]] \
-      || cp -f "$f" "$_shared"
+    [[ $f = "$_data_directory/${f##*/}" ]] \
+      || cp -f "$f" "$_data_directory"
 
     # adds entry in browser.html if it doesn't exist
     grep "$str" "$_tmp" >/dev/null \
