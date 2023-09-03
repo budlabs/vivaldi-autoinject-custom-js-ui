@@ -1,99 +1,69 @@
 .nh
-.TH VIVALDI\-AUTOINJECT\-CUSTOM\-JS\-UI 1 2020\-11\-22 Linux "User Manuals"
+.TH VIVALDI-AUTOINJECT-CUSTOM-JS-UI  1 2023-08-27 budlabs "User Manuals"
 .SH NAME
 .PP
-\fB\fCvivaldi\-autoinject\-custom\-js\-ui\fR \- manage custom
-js UI mods for the vivaldi web browser
+vivaldi-autoinject-custom-js-ui - manage custom js UI mods for the vivaldi web browser
 
-.SH SYNOPSIS
+.SH USAGE
 .PP
-.RS
+\fB\fCvivaldi-autoinject-custom-js-ui [OPTIONS] [FILE...]\fR
 
-.nf
-vivaldi\-autoinject\-custom\-js\-ui [\-\-remove|\-r FILENAME] [FILES ...]
-vivaldi\-autoinject\-custom\-js\-ui \-\-list|\-l
-vivaldi\-autoinject\-custom\-js\-ui \-\-help|\-h
-vivaldi\-autoinject\-custom\-js\-ui \-\-version|\-v
-
-.fi
-.RE
-
-.SH DESCRIPTION
 .PP
-To manually add custom javascript modifications
-to the \fBvivaldi\fP web browser one needs to do the
+To manually add custom javascript modifications to
+the \fBvivaldi\fP web browser one needs to do the
 following:
 
 .RS
 .IP \(bu 2
 Add the javascript file to vivaldis resource directory (on arch this is \fB\fC/opt/vivaldi/resources/vivaldi\fR)
 .IP \(bu 2
-Add an entry in the browser.html file in the same directory.
+Add an entry in the windows.html (pre vivaldi 6.2: browser.html) file in the same directory.
 
 .RE
 
 .PP
 This is not too complicated, but I have noticed
 that when \fBvivaldi\fP is being updated, the
-\fB\fCbrowser.html\fR file is overwritten, meaning that
+\fB\fCwindows.html\fR file is overwritten, meaning that
 step 2 needs to be repeated after every update.
 
 .PP
 It also gets a bit messy to manage multiple mods.
 
 .PP
-If \fB\fCvivaldi\-autoinject\-custom\-js\-ui\fR is launched
+If \fB\fCvivaldi-autoinject-custom-js-ui\fR is launched
 without any command line arguments, it will update
-the \fB\fCbrowser.html\fR file to include all javascript
-files located in \fB\fCPREFIX/share/vivaldi\-UI\-js\fR,
-(\fIPREFIX will be inherited by the Makefile on
-installation, but defaults to:\fP \fB\fC/usr\fR). The
-\fBvivaldi\-UI\-js/\fP directory is automatically
+the \fB\fCwindows.html\fR file to include all javascript
+files located in \fB\fCPREFIX/share/vivaldi-UI-js\fR,
+(\fIPREFIX defaults to:\fP \fB\fC/usr\fR). The
+\fBvivaldi-UI-js/\fP directory is automatically
 created by the script when new mods are added.
 
 .PP
-Any files with \fB\fC\&.js\fR extension passed as
-arguments will get added or updated.
-
-.PP
-To remove a mod, pass the filename of the mod to
-the \fB\fC\-\-remove\fR option.
-
-.PP
-If the script is executed on \fBArch\fP Linux, it
-will install a pacman hook (\fBalpm\-hooks(5)\fP)
-that will execute the script everytime vivaldi is
-being updated.
+Any files with \fB\fC\&.js\fR extension passed as arguments
+will get added or updated.
 
 .SH OPTIONS
 .PP
-\fB\fC\-\-remove\fR|\fB\fC\-r\fR FILENAME
+.RS
+
+.nf
+-h, --help             | Show help and exit
+-l, --list             | Prints all installed js modifications
+-r, --remove  FILENAME | Remove FILENAME
+-v, --version          | Show version and exit
+
+.fi
+.RE
+
+.SH CONTACT
+.PP
+Send bugs and feature requests to:
 .br
-Remove FILENAME.
+github.com/budlabs/vivaldi-autoinject-custom-js-ui/issues
 
+.SH COPYRIGHT
 .PP
-\fB\fC\-\-list\fR|\fB\fC\-l\fR
+Copyright (c) 2020-2023, budRich of budlabs
 .br
-Prints all installed js modifications.
-
-.PP
-\fB\fC\-\-help\fR|\fB\fC\-h\fR
-.br
-Show help and exit.
-
-.PP
-\fB\fC\-\-version\fR|\fB\fC\-v\fR
-.br
-Show version and exit.
-
-.SH DEPENDENCIES
-.PP
-\fB\fCbash\fR \fB\fCsed\fR \fB\fCvivaldi\fR
-
-.PP
-budRich https://github.com/budlabs/vivaldi\-autoinject\-custom\-js
-\[la]https://github.com/budlabs/vivaldi-autoinject-custom-js\[ra]
-
-.SH SEE ALSO
-.PP
-bash(1), sed(1), alpm\-hooks(5),
+SPDX-License-Identifier: BSD-2-Clause
