@@ -17,8 +17,8 @@ addfiles() {
   mkdir -p "$_shared"
   
   for f in "${files[@]}"; do
-    str=$(printf '<script src="%s"></script>' "${f##*/}")
-    cp -f "$f" "$_optd"
+    printf -v str '<script src="%s"></script>' "${f##*/}"
+    cp -f "$f" "$_browser_html"
 
     # files passed as arguments overwrites existing
     # files in /usr/share/vivaldi-UI-js

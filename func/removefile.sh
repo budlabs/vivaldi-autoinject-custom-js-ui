@@ -13,5 +13,5 @@ removefile() {
 
   str=$(printf '<script src="%s"></script>' "$trg")
 
-  grep -v "$str" "$_trg" > "$_tmp"
+  grep -v "$str" "$_browser_html" > "$_tmp"
 }

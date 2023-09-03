@@ -13,28 +13,30 @@ _source=$(readlink -f "${BASH_SOURCE[0]}")
 _vivaldi=$(readlink -f "$(which vivaldi-stable)")
 : "${_vivaldi:=$(readlink -f "$(which vivaldi-snapshot)")}"
 
-_optd=${_vivaldi%/*}/resources/vivaldi
-_shared=$_prefix/share/vivaldi-UI-js
+  : "${_vivaldi:=$(realpath "$(command -v vivaldi-stable)")}"
+  : "${_vivaldi:=$(realpath "$(command -v vivaldi-snapshot)")}"
+  : "${_vivaldi:=$(realpath "$(command -v vivaldi)")}"
 
-_trg=$_optd/browser.html
+  [[ $_vivaldi ]] || ERX "could not find vivaldi, is it installed?"
+  _vivaldi_directory=${_vivaldi%/*}/resources/vivaldi
 
-main() {
+  _vivaldi_version=$("$_vivaldi" --version 2>/dev/null)
+  IFS=. read -rs major minor _ <<< "${_vivaldi_version//[^0-9.]/}"
 
-  ((__o[list])) && {
-    ls -A "$_shared"
-    exit
-  }
+  if ((major >= 6 && minor >= 2))
+    then _browser_html=$_vivaldi_directory/window.html
+    else _browser_html=$_vivaldi_directory/browser.html
+  fi
 
-  ((EUID)) && ERX \
-    "script needs to be executed as root (sudo)"
+  unset _vivaldi_version major minor
 
-  [[ -f $_trg ]] || ERX \
-    "could not find $_trg, is vivaldi installed?"
+  [[ -f $_browser_html ]] || ERX \
+    "could not find $_browser_html, is vivaldi installed?"
 
   readonly _tmp=$(mktemp)
   trap 'rm -f "$_tmp"' EXIT SIGINT
 
-  cp -f "$_trg" "$_tmp"
+  cp -f "$_browser_html" "$_tmp"
 
   if [[ -n ${__o[remove]} ]]; then
     removefile "${__o[remove]}"
@@ -42,7 +44,7 @@ main() {
     addfiles "$@"
   fi
 
-  cp -f "$_tmp" "$_trg"
+  cp -f "$_tmp" "$_browser_html"
 
   installhook
   exit 0
