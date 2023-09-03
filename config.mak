@@ -1,5 +1,5 @@
 NAME         := vivaldi-autoinject-custom-js-ui
-VERSION      := 2023.09.03.1
+VERSION      := 2023.09.03.2
 UPDATED      := 2023-09-03
 CREATED      := 2020-11-21
 AUTHOR       := budRich
@@ -10,16 +10,8 @@ ORGANISATION := budlabs
 LICENSE      := BSD-2-Clause
 MONOLITH     := _$(NAME)
 
+
 .PHONY: install uninstall manpage readme
-
-$(MONOLITH).out: $(MONOLITH)
-	m4 -DPREFIX=$(PREFIX) $< >$@
-
-install: $(MONOLITH).out
-	install -Dm755 $(MONOLITH).out  $(DESTDIR)$(PREFIX)/bin/$(NAME)
-
-uninstall:
-	[[ -f $(DESTDIR)$(PREFIX)/bin/$(NAME) ]] && rm $(DESTDIR)$(PREFIX)/bin/$(NAME)
 
 MANPAGE_DEPS =                       \
 	$(CACHE_DIR)/help_table.txt        \
@@ -78,3 +70,15 @@ README.md: $(README_DEPS)
 	  cat "$(CACHE_DIR)/help_table.txt"
 	  echo '```'
 	} > $@
+
+
+installed_manpage   := \
+	$(DESTDIR)$(PREFIX)/share/man/man$(manpage_section)/$(MANPAGE)
+
+install: $(CACHE_DIR)/_$(NAME).out $(MANPAGE)
+	install -Dm755 $(CACHE_DIR)/_$(NAME).out  $(DESTDIR)$(PREFIX)/bin/$(NAME)
+	install -Dm644 $(MANPAGE)                 $(installed_manpage)
+
+uninstall:
+	[[ -f $(DESTDIR)$(PREFIX)/bin/$(NAME) ]] && rm $(DESTDIR)$(PREFIX)/bin/$(NAME)
+	[[ -f $(installed_manpage) ]] && rm $(installed_manpage)
