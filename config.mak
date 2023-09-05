@@ -75,6 +75,10 @@ README.md: $(README_DEPS)
 installed_manpage   := \
 	$(DESTDIR)$(PREFIX)/share/man/man$(manpage_section)/$(MANPAGE)
 
+$(CACHE_DIR)/_$(NAME).out: $(MONOLITH)
+	m4 -DPREFIX=$(PREFIX) $< >$@
+
+
 install: $(CACHE_DIR)/_$(NAME).out $(MANPAGE)
 	install -Dm755 $(CACHE_DIR)/_$(NAME).out  $(DESTDIR)$(PREFIX)/bin/$(NAME)
 	install -Dm644 $(MANPAGE)                 $(installed_manpage)
