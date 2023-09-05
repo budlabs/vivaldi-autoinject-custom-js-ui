@@ -1,6 +1,6 @@
 NAME         := vivaldi-autoinject-custom-js-ui
-VERSION      := 2023.09.03.2
-UPDATED      := 2023-09-03
+VERSION      := 2023.09.05.1
+UPDATED      := 2023-09-05
 CREATED      := 2020-11-21
 AUTHOR       := budRich
 CONTACT      := github.com/budlabs/vivaldi-autoinject-custom-js-ui
@@ -9,7 +9,6 @@ DESCRIPTION  := manage custom js UI mods for the vivaldi web browser
 ORGANISATION := budlabs
 LICENSE      := BSD-2-Clause
 MONOLITH     := _$(NAME)
-
 
 .PHONY: install uninstall manpage readme
 
@@ -71,13 +70,11 @@ README.md: $(README_DEPS)
 	  echo '```'
 	} > $@
 
-
 installed_manpage   := \
 	$(DESTDIR)$(PREFIX)/share/man/man$(manpage_section)/$(MANPAGE)
 
 $(CACHE_DIR)/_$(NAME).out: $(MONOLITH)
 	m4 -DPREFIX=$(PREFIX) $< >$@
-
 
 install: $(CACHE_DIR)/_$(NAME).out $(MANPAGE)
 	install -Dm755 $(CACHE_DIR)/_$(NAME).out  $(DESTDIR)$(PREFIX)/bin/$(NAME)
